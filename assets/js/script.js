@@ -48,14 +48,13 @@ function getWeatherData(city) {
 function updateSelection() {
     let content = '';
     instance.cities.forEach((city, index) => {
-        // content += `<option value=${index} ${index === 0 ? 'selected' : ''}>${city.state}/${city.name}</option>`;
         content += `<option value=${index} ${index === 0 ? 'selected' : ''}>${`${city.state ? `${city.state}/` : ''}${city.name}`}</option>`;
     });
     citiesSelect.innerHTML = content;
 }
 
 function render() {
-    const head = instance.weatherData.name;
+    const head = instance.cities[citiesSelect.value].name;
     const iconURL = `https://openweathermap.org/img/wn/${instance.weatherData.weather[0].icon}@4x.png`
     const wind = instance.weatherData.wind.speed;
     const humid = instance.weatherData.main.humidity;
