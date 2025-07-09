@@ -1,4 +1,4 @@
-const appData = {
+const instance = {
     cities: [],
     weatherData: {},
 };
@@ -17,15 +17,15 @@ const weather = document.querySelector('#weather');
 searchButton.addEventListener('click', async function () {
     const cityName = cityNameInput.value;
     
-    appData.cities = await getCities(cityName);
+    instance.cities = await getCities(cityName);
     updateSelection();
 
-    appData.weatherData = await getWeatherData(appData.cities[citiesSelect.value]);
+    instance.weatherData = await getWeatherData(instance.cities[citiesSelect.value]);
     render();
 });
 
 citiesSelect.addEventListener('change', async function () {
-    appData.weatherData = await getWeatherData(appData.cities[citiesSelect.value]);
+    instance.weatherData = await getWeatherData(instance.cities[citiesSelect.value]);
     render();
 });
 
@@ -46,13 +46,13 @@ function getWeatherData(city) {
 }
 
 function render() {
-    const iconURL = `https://openweathermap.org/img/wn/${appData.weatherData.weather[0].icon}@4x.png`
-    const wind = appData.weatherData.wind.speed;
-    const humi = appData.weatherData.main.humidity;
-    const temp = Math.round(appData.weatherData.main.temp);
-    const weat = appData.weatherData.weather[0].main;
+    const iconURL = `https://openweathermap.org/img/wn/${instance.weatherData.weather[0].icon}@4x.png`
+    const wind = instance.weatherData.wind.speed;
+    const humi = instance.weatherData.main.humidity;
+    const temp = Math.round(instance.weatherData.main.temp);
+    const weat = instance.weatherData.weather[0].main;
 
-    cityHeader.innerHTML = appData.weatherData.name;
+    cityHeader.innerHTML = instance.weatherData.name;
     weatherIcon.setAttribute('src', iconURL);
     windSpeed.innerHTML = wind;
     humidity.innerHTML = humi;
@@ -62,7 +62,7 @@ function render() {
 
 function updateSelection() {
     let content = '';
-    appData.cities.forEach((city, index) => {
+    instance.cities.forEach((city, index) => {
         content += `<option value=${index} ${index === 0 ? 'selected' : ''}>${city.state}/${city.name}</option>`
     });
     citiesSelect.innerHTML = content;
