@@ -8,6 +8,7 @@ const searchButton = document.querySelector('#search-button');
 
 const temperature = document.querySelector('#temperature');
 const weather = document.querySelector('#weather');
+const weatherIcon = document.querySelector('#weather-icon');
 
 searchButton.addEventListener('click', async function () {
     const cityName = cityNameInput.value;
@@ -35,8 +36,10 @@ async function getWeatherData(city) {
 }
 
 function render() {
+    const iconURL = `https://openweathermap.org/img/wn/${appData.weatherData.weather[0].icon}@4x.png`
     const temp = Math.round(appData.weatherData.main.temp);
     const weat = appData.weatherData.weather[0].main;
+    weatherIcon.setAttribute('src', iconURL);
     temperature.innerHTML = temp;
     weather.innerHTML = weat;
 }
