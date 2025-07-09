@@ -20,3 +20,13 @@ It shows current weather data for any city you search, including temperature, we
 - JavaScript
 - [Bootstrap 5](https://getbootstrap.com/)
 - [OpenWeatherMap API](https://openweathermap.org/api)
+
+## 📸 Screenshots
+
+### Desktop View
+![London Weather](./screenshots/01.png)
+![Washington Weather](./screenshots/02.png)
+![Jakarta Weather](./screenshots/03.png)
+
+### Mobile View
+![London Mobile View](./screenshots/03mobile.png)
