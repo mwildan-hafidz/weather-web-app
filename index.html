@@ -6,7 +6,7 @@
     <title>Weather Web App</title>
     <link rel="stylesheet" href="assets/css/bootstrap.css">
 </head>
-<body>
+<body class="vh-100 d-flex flex-column">
     <!-- Navbar -->
     <nav class="navbar bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
@@ -34,7 +34,7 @@
     </section>
 
     <!-- Weather result -->
-    <section class="py-3" id="weather-result">
+    <section class="py-3 flex-fill" id="weather-result">
         <div class="container">
             <div class="row text-center">
                 <h3 id="city-header">City</h3>
@@ -60,6 +60,17 @@
                     <div class="display-1"><span id="temperature">0</span><span>&deg;C</span></div>
                     <div class="display-5" id="weather">Weather</div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-3 bg-dark bottom-0 text-white text-center">
+        <div class="container">
+            <div class="container">
+                <p>
+                    Copyright &copy; 2025 M. Wildan Hafidz. <br>
+                    <a href="https://github.com/mwildan-hafidz" class="text-white">GitHub</a> | All rights reserved.
+                </p>
             </div>
         </div>
     </section>
