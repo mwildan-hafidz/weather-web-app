@@ -5,6 +5,7 @@ const appData = {
 
 const cityNameInput = document.querySelector('#city-name-input');
 const searchButton = document.querySelector('#search-button');
+const citiesSelect = document.querySelector('#cities-select');
 
 const temperature = document.querySelector('#temperature');
 const weather = document.querySelector('#weather');
@@ -14,8 +15,14 @@ searchButton.addEventListener('click', async function () {
     const cityName = cityNameInput.value;
     
     appData.cities = await getCities(cityName);
-    appData.weatherData = await getWeatherData(appData.cities[0]);
+    updateSelection();
+    
+    appData.weatherData = await getWeatherData(appData.cities[citiesSelect.value]);
+    render();
+});
 
+citiesSelect.addEventListener('change', async function () {
+    appData.weatherData = await getWeatherData(appData.cities[citiesSelect.value]);
     render();
 });
 
@@ -42,4 +49,12 @@ function render() {
     weatherIcon.setAttribute('src', iconURL);
     temperature.innerHTML = temp;
     weather.innerHTML = weat;
+}
+
+function updateSelection() {
+    let content = '';
+    appData.cities.forEach((city, index) => {
+        content += `<option value=${index} ${index === 0 ? 'selected' : ''}>${city.state}/${city.name}</option>`
+    });
+    citiesSelect.innerHTML = content;
 }
