@@ -39,9 +39,13 @@
             <div class="row text-center">
                 <h3 id="city-header">City</h3>
             </div>
-            <div class="row text-center g-2">
-                <div class="col-12">
+            <div class="row text-center gap-2">
+                <div class="col-12 position-relative">
                     <img src="https://openweathermap.org/img/wn/01d@4x.png" alt="weather" class="img-fluid" id="weather-icon">
+                    <div class="position-absolute bottom-0 start-50 translate-middle text-body-tertiary">
+                        <img src="assets/img/wind.svg" alt="wind" class="img-fluid">
+                        <span id="wind-speed">0</span><span>m/s</span>
+                    </div>
                 </div>
                 <div class="col-12 text-center">
                     <div class="display-1"><span id="temperature">0</span><span>&deg;C</span></div>
