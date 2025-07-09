@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Web App</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <div class="navbar-brand fw-bold">Weather Web App</div>
+        </div>
+    </nav>
+    
+    <!-- User input -->
+    <section class="py-3" id="user-input">
+        <div class="container">
+            <div class="input-group">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="city-input" placeholder="name@example.com">
+                    <label for="city-input">City</label>
+                </div>
+                <button class="btn btn-outline-secondary" type="button" id="search-button">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weather result -->
+    <section class="py-3" id="weather-result">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="display-1"><span>30</span>&deg;C</div>
+                    <div class="display-5">Sunny</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="assets/js/bootstrap.js"></script>
+</body>
+</html>
