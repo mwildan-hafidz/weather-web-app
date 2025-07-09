@@ -17,14 +17,14 @@
     <!-- User input -->
     <section class="py-3" id="user-input">
         <div class="container">
-            <div class="row gap-1">
-                <div class="col-12">
+            <div class="row row-gap-2 row-gap-md-0">
+                <div class="col-12 col-md-6">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="City" id="city-name-input">
                         <button class="btn btn-outline-secondary" type="button" id="search-button">Search</button>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-12 col-md-6">
                     <select class="form-select" id="cities-select">
                         <option>Select City</option>
                     </select>
@@ -39,12 +39,12 @@
             <div class="row text-center">
                 <h3 id="city-header">City</h3>
             </div>
-            <div class="row text-center gap-2">
-                <div class="col-12 position-relative">
+            <div class="row text-center justify-content-md-center align-items-md-center">
+                <div class="col-12 col-md-auto position-relative">
                     <img src="https://openweathermap.org/img/wn/01d@4x.png" alt="weather" class="img-fluid" id="weather-icon">
                     <!-- Weather Details -->
                     <div class="position-absolute bottom-0 start-50 translate-middle text-body-tertiary">
-                        <div class="row text-nowrap">
+                        <div class="row text-nowrap flex-nowrap col-gap-md-2">
                             <div class="col">
                                 <img src="assets/img/wind.svg" alt="wind" class="img-fluid">
                                 <span id="wind-speed">0</span><span>m/s</span>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 text-center">
+                <div class="col-12 col-md-auto text-center">
                     <div class="display-1"><span id="temperature">0</span><span>&deg;C</span></div>
                     <div class="display-5" id="weather">Weather</div>
                 </div>
@@ -64,6 +64,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <section class="py-3 bg-dark bottom-0 text-white text-center">
         <div class="container">
             <div class="container">
