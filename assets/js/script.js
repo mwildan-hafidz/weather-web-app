@@ -34,7 +34,7 @@ function getCities(cityName) {
         .then((res) => res.json());
 }
 
-async function getWeatherData(city) {
+function getWeatherData(city) {
     const lat = city.lat;
     const lon = city.lon;
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
