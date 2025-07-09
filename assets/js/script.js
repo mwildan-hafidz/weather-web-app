@@ -45,25 +45,27 @@ function getWeatherData(city) {
         .then((res) => res.json());
 }
 
-function render() {
-    const iconURL = `https://openweathermap.org/img/wn/${instance.weatherData.weather[0].icon}@4x.png`
-    const wind = instance.weatherData.wind.speed;
-    const humi = instance.weatherData.main.humidity;
-    const temp = Math.round(instance.weatherData.main.temp);
-    const weat = instance.weatherData.weather[0].main;
-
-    cityHeader.innerHTML = instance.weatherData.name;
-    weatherIcon.setAttribute('src', iconURL);
-    windSpeed.innerHTML = wind;
-    humidity.innerHTML = humi;
-    temperature.innerHTML = temp;
-    weather.innerHTML = weat;
-}
-
 function updateSelection() {
     let content = '';
     instance.cities.forEach((city, index) => {
-        content += `<option value=${index} ${index === 0 ? 'selected' : ''}>${city.state}/${city.name}</option>`
+        // content += `<option value=${index} ${index === 0 ? 'selected' : ''}>${city.state}/${city.name}</option>`;
+        content += `<option value=${index} ${index === 0 ? 'selected' : ''}>${`${city.state ? `${city.state}/` : ''}${city.name}`}</option>`;
     });
     citiesSelect.innerHTML = content;
+}
+
+function render() {
+    const head = instance.weatherData.name;
+    const iconURL = `https://openweathermap.org/img/wn/${instance.weatherData.weather[0].icon}@4x.png`
+    const wind = instance.weatherData.wind.speed;
+    const humid = instance.weatherData.main.humidity;
+    const temp = Math.round(instance.weatherData.main.temp);
+    const weat = instance.weatherData.weather[0].main;
+
+    cityHeader.innerHTML = head;
+    weatherIcon.setAttribute('src', iconURL);
+    windSpeed.innerHTML = wind;
+    humidity.innerHTML = humid;
+    temperature.innerHTML = temp;
+    weather.innerHTML = weat;
 }
