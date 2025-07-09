@@ -42,9 +42,18 @@
             <div class="row text-center gap-2">
                 <div class="col-12 position-relative">
                     <img src="https://openweathermap.org/img/wn/01d@4x.png" alt="weather" class="img-fluid" id="weather-icon">
+                    <!-- Weather Details -->
                     <div class="position-absolute bottom-0 start-50 translate-middle text-body-tertiary">
-                        <img src="assets/img/wind.svg" alt="wind" class="img-fluid">
-                        <span id="wind-speed">0</span><span>m/s</span>
+                        <div class="row text-nowrap">
+                            <div class="col">
+                                <img src="assets/img/wind.svg" alt="wind" class="img-fluid">
+                                <span id="wind-speed">0</span><span>m/s</span>
+                            </div>
+                            <div class="col">
+                                <img src="assets/img/humidity.svg" alt="humidity" class="img-fluid">
+                                <span id="humidity">0</span><span>%</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 text-center">

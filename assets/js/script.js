@@ -10,6 +10,7 @@ const citiesSelect = document.querySelector('#cities-select');
 const cityHeader = document.querySelector('#city-header');
 const weatherIcon = document.querySelector('#weather-icon');
 const windSpeed = document.querySelector('#wind-speed');
+const humidity = document.querySelector('#humidity');
 const temperature = document.querySelector('#temperature');
 const weather = document.querySelector('#weather');
 
@@ -47,12 +48,14 @@ function getWeatherData(city) {
 function render() {
     const iconURL = `https://openweathermap.org/img/wn/${appData.weatherData.weather[0].icon}@4x.png`
     const wind = appData.weatherData.wind.speed;
+    const humi = appData.weatherData.main.humidity;
     const temp = Math.round(appData.weatherData.main.temp);
     const weat = appData.weatherData.weather[0].main;
 
     cityHeader.innerHTML = appData.weatherData.name;
     weatherIcon.setAttribute('src', iconURL);
     windSpeed.innerHTML = wind;
+    humidity.innerHTML = humi;
     temperature.innerHTML = temp;
     weather.innerHTML = weat;
 }
