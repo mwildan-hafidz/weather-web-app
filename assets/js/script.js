@@ -7,16 +7,17 @@ const cityNameInput = document.querySelector('#city-name-input');
 const searchButton = document.querySelector('#search-button');
 const citiesSelect = document.querySelector('#cities-select');
 
+const cityHeader = document.querySelector('#city-header');
+const weatherIcon = document.querySelector('#weather-icon');
 const temperature = document.querySelector('#temperature');
 const weather = document.querySelector('#weather');
-const weatherIcon = document.querySelector('#weather-icon');
 
 searchButton.addEventListener('click', async function () {
     const cityName = cityNameInput.value;
     
     appData.cities = await getCities(cityName);
     updateSelection();
-    
+
     appData.weatherData = await getWeatherData(appData.cities[citiesSelect.value]);
     render();
 });
@@ -46,6 +47,7 @@ function render() {
     const iconURL = `https://openweathermap.org/img/wn/${appData.weatherData.weather[0].icon}@4x.png`
     const temp = Math.round(appData.weatherData.main.temp);
     const weat = appData.weatherData.weather[0].main;
+    cityHeader.innerHTML = appData.weatherData.name;
     weatherIcon.setAttribute('src', iconURL);
     temperature.innerHTML = temp;
     weather.innerHTML = weat;
