@@ -1,6 +1,9 @@
 const instance = {
     cities: [],
     weatherData: {},
+    settings: {
+        units: 'metric',
+    },
 };
 
 const cityNameInput = document.querySelector('#city-name-input');
@@ -10,9 +13,14 @@ const citiesSelect = document.querySelector('#cities-select');
 const cityHeader = document.querySelector('#city-header');
 const weatherIcon = document.querySelector('#weather-icon');
 const windSpeed = document.querySelector('#wind-speed');
+const windSpeedUnits = document.querySelector('#wind-speed-units');
 const humidity = document.querySelector('#humidity');
 const temperature = document.querySelector('#temperature');
+const temperatureUnits = document.querySelector('#temperature-units');
 const weather = document.querySelector('#weather');
+
+const unitsSelect = document.querySelector('#units-select');
+const saveSettingsBtn = document.querySelector('#save-settings-btn');
 
 searchButton.addEventListener('click', async function () {
     const cityName = cityNameInput.value;
@@ -32,6 +40,13 @@ searchButton.addEventListener('click', async function () {
 });
 
 citiesSelect.addEventListener('change', async function () {
+    instance.weatherData = await getWeatherData(instance.cities[citiesSelect.value]);
+    render();
+});
+
+saveSettingsBtn.addEventListener('click', async function () {
+    instance.settings.units = unitsSelect.value;
+    
     instance.weatherData = await getWeatherData(instance.cities[citiesSelect.value]);
     render();
 });
@@ -56,10 +71,42 @@ function getCities(cityName) {
 function getWeatherData(city) {
     const lat = city.lat;
     const lon = city.lon;
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${instance.settings.units}&appid=${apiKey}`;
 
     return fetch(url)
         .then((res) => res.json());
+}
+
+function getWindSpeedUnits(units) {
+    switch (units) {
+        case 'metric':
+            return 'm/s';
+        
+        case 'standard':
+            return 'm/s';
+        
+        case 'imperial':
+            return 'mph';
+    
+        default:
+            throw new Error(`Units '${units}' does not exists!`);
+    }
+}
+
+function getTemperatureUnits(units) {
+    switch (units) {
+        case 'metric':
+            return '&deg;C';
+        
+        case 'standard':
+            return 'K';
+        
+        case 'imperial':
+            return '&deg;F';
+    
+        default:
+            throw new Error(`Units '${units}' does not exists!`);
+    }
 }
 
 function updateSelection() {
@@ -71,17 +118,12 @@ function updateSelection() {
 }
 
 function render() {
-    const head = instance.cities[citiesSelect.value].name;
-    const iconURL = `https://openweathermap.org/img/wn/${instance.weatherData.weather[0].icon}@4x.png`
-    const wind = instance.weatherData.wind.speed;
-    const humid = instance.weatherData.main.humidity;
-    const temp = Math.round(instance.weatherData.main.temp);
-    const weat = instance.weatherData.weather[0].main;
-
-    cityHeader.innerHTML = head;
-    weatherIcon.setAttribute('src', iconURL);
-    windSpeed.innerHTML = wind;
-    humidity.innerHTML = humid;
-    temperature.innerHTML = temp;
-    weather.innerHTML = weat;
+    cityHeader.innerHTML = instance.cities[citiesSelect.value].name;
+    weatherIcon.setAttribute('src', `https://openweathermap.org/img/wn/${instance.weatherData.weather[0].icon}@4x.png`);
+    windSpeed.innerHTML = instance.weatherData.wind.speed;
+    windSpeedUnits.innerHTML = getWindSpeedUnits(instance.settings.units);
+    humidity.innerHTML = instance.weatherData.main.humidity;
+    temperature.innerHTML = Math.round(instance.weatherData.main.temp);
+    temperatureUnits.innerHTML = getTemperatureUnits(instance.settings.units);
+    weather.innerHTML = instance.weatherData.weather[0].main;
 }

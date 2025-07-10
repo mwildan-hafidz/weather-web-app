@@ -11,6 +11,7 @@
     <nav class="navbar bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
             <div class="navbar-brand fw-bold">Weather Web App</div>
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#settingsModal"><img src="assets/img/settings.svg" alt="settings"></button>
         </div>
     </nav>
     
@@ -46,7 +47,7 @@
                     <div class="position-absolute bottom-0 start-50 translate-middle text-body-tertiary w-100 d-flex justify-content-center column-gap-3">
                         <div>
                             <img src="assets/img/wind.svg" alt="wind" class="img-fluid">
-                            <span id="wind-speed">0</span><span>m/s</span>
+                            <span id="wind-speed">0</span><span id="wind-speed-units">m/s</span>
                         </div>
                         <div>
                             <img src="assets/img/humidity.svg" alt="humidity" class="img-fluid">
@@ -55,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-auto text-center">
-                    <div class="display-1"><span id="temperature">0</span><span>&deg;C</span></div>
+                    <div class="display-1"><span id="temperature">0</span><span id="temperature-units">&deg;C</span></div>
                     <div class="display-5" id="weather">Weather</div>
                 </div>
             </div>
@@ -73,6 +74,37 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <label for="units-select" class="col-form-label">Units system</label>
+                            </div>
+                            <div class="col">
+                                <select class="form-select" id="units-select">
+                                    <option value="metric" selected>metric</option>
+                                    <option value="standard">standard</option>
+                                    <option value="imperial">imperial</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="save-settings-btn">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- JS -->
     <script src="assets/js/bootstrap.js"></script>
