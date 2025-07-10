@@ -16,10 +16,17 @@ const weather = document.querySelector('#weather');
 
 searchButton.addEventListener('click', async function () {
     const cityName = cityNameInput.value;
+    if (cityName === '') return;
     
-    instance.cities = await getCities(cityName);
-    updateSelection();
-
+    try {
+        instance.cities = await getCities(cityName);
+        updateSelection();
+    }
+    catch (err) {
+        console.error(err);
+        return;
+    }
+    
     instance.weatherData = await getWeatherData(instance.cities[citiesSelect.value]);
     render();
 });
@@ -33,7 +40,17 @@ function getCities(cityName) {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKey}`;
     
     return fetch(url)
-        .then((res) => res.json());
+        .then((res) => {
+            if (!res.ok) throw new Error(res.statusText);
+            return res.json()
+        })
+        .then((json) => {
+            if (json.length === 0) throw new Error('City not found!', );
+            return json;
+        })
+        .catch((err) => {
+            throw err;
+        });
 }
 
 function getWeatherData(city) {
