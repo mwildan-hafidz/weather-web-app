@@ -19,6 +19,8 @@ const temperature = document.querySelector('#temperature');
 const temperatureUnits = document.querySelector('#temperature-units');
 const weather = document.querySelector('#weather');
 
+const alertContainer = document.querySelector('#alert-container');
+
 const unitsSelect = document.querySelector('#units-select');
 const saveSettingsBtn = document.querySelector('#save-settings-btn');
 
@@ -31,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
             updateSelection();
         }
         catch (err) {
-            console.error(err);
+            addAlert(err);
             return;
         }
 
@@ -49,7 +51,7 @@ searchButton.addEventListener('click', async function () {
         updateSelection();
     }
     catch (err) {
-        console.error(err);
+        addAlert(err);
         return;
     }
     
@@ -144,6 +146,16 @@ function getTemperatureUnits(units) {
         default:
             throw new Error(`Units '${units}' does not exists!`);
     }
+}
+
+function addAlert(msg) {
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = `<div class="alert alert-danger alert-dismissible" role="alert">
+        <div>${msg}</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`
+
+    alertContainer.append(wrapper)
 }
 
 function updateSelection() {
