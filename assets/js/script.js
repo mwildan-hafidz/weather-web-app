@@ -26,6 +26,15 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!navigator.geolocation) return;
 
     navigator.geolocation.getCurrentPosition(async (pos) => {
+        try {
+            instance.cities = await getCitiesByCoords(pos.coords.latitude, pos.coords.longitude);
+            updateSelection();
+        }
+        catch (err) {
+            console.error(err);
+            return;
+        }
+
         instance.weatherData = await getWeatherData(pos.coords.latitude, pos.coords.longitude);
         render();
     });
@@ -36,7 +45,7 @@ searchButton.addEventListener('click', async function () {
     if (cityName === '') return;
     
     try {
-        instance.cities = await getCities(cityName);
+        instance.cities = await getCitiesByName(cityName);
         updateSelection();
     }
     catch (err) {
@@ -63,9 +72,26 @@ saveSettingsBtn.addEventListener('click', async function () {
     render();
 });
 
-function getCities(cityName) {
+function getCitiesByName(cityName) {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKey}`;
     
+    return fetch(url)
+        .then((res) => {
+            if (!res.ok) throw new Error(res.statusText);
+            return res.json()
+        })
+        .then((json) => {
+            if (json.length === 0) throw new Error('City not found!', );
+            return json;
+        })
+        .catch((err) => {
+            throw err;
+        });
+}
+
+function getCitiesByCoords(lat, lon) {
+    const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${apiKey}`;
+
     return fetch(url)
         .then((res) => {
             if (!res.ok) throw new Error(res.statusText);
@@ -87,13 +113,6 @@ function getWeatherData(lat, lon) {
         .then((res) => res.json());
 }
 
-function getCityData(lat, lon) {
-    const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${apiKey}`;
-
-    return fetch(url)
-        .then((res) => res.json())
-        .then((json) => json[0]);
-}
 
 function getWindSpeedUnits(units) {
     switch (units) {
@@ -135,10 +154,8 @@ function updateSelection() {
     citiesSelect.innerHTML = content;
 }
 
-async function render() {
-    const city = await getCityData(instance.weatherData.coord.lat, instance.weatherData.coord.lon);
-
-    cityHeader.innerHTML = city.name;
+function render() {
+    cityHeader.innerHTML = instance.cities[citiesSelect.value].name;
     weatherIcon.setAttribute('src', `https://openweathermap.org/img/wn/${instance.weatherData.weather[0].icon}@4x.png`);
     windSpeed.innerHTML = instance.weatherData.wind.speed;
     windSpeedUnits.innerHTML = getWindSpeedUnits(instance.settings.units);
